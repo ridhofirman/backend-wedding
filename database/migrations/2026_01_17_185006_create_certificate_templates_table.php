@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pakets', function (Blueprint $table) {
+        Schema::create('certificate_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->nullable();
+            $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
-            $table->integer('price');
-            $table->string('durasi')->nullable();
-            $table->json('benefits');
-            $table->boolean('is_rias')->default(false);
+            $table->string('background_path');
+            $table->json('fields')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pakets');
+        Schema::dropIfExists('certificate_templates');
     }
 };
